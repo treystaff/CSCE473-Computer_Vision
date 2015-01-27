@@ -1,3 +1,7 @@
+% CSCE 473/873: Computer Vision
+% Assignment 1
+% Author: Trey Stafford
+
 impath = 'onion.png'; %Path to image
 savepath = 'D:\Pictures\CV_imgs\'; %Path to where generated images will be saved.
 
@@ -9,9 +13,9 @@ imtool(img); % Opens image in image tool gui window
 
 % Convert to gray scale
 gimg = rgb2gray(img);
-imtool(gimg); %Image properties: (140, 20)  242; (52, 62)  134; (50, 19)  47; 
+imtool(gimg); %Open gray scale imaeg in image tool window
 
-%Examine histogram of 
+%Examine histogram
 %Appears to be a dark image visually
 figure('Name','gimg hist')
 imhist(gimg); %Open image histogram in figure window.

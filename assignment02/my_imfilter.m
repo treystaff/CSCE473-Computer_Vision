@@ -36,11 +36,30 @@ function output = my_imfilter(image, filter)
 
 %%
 % Filter dimensions must be odd
-[m,n] = size(filter);
-if mod(m,2) == 0 || mod(n,2) == 0
+[fr,fc] = size(filter);
+if mod(fr,2) == 0 || mod(fc,2) == 0
     error('Filter dimensions must be odd');
 end
+% Calculate filter size
+fsize = fr*fc;
 
+% Get the image dimensions (Rows, Columns, Dimensions) 
+[R,C,D] = size(image);
+%The output will have the same image dimensions. 
+output = zeros(R,C,D);
 
+% Pad the input image with zeros.
+rOffset = floor(fr/2);
+cOffset = floor(fc/2);
+image = padarray(image,[rOffset,cOffset]);
 
-
+%Each dimension processed separately. 
+for d=1:D
+   %Loop through rows and columns
+   for r=1:R
+       for c=1:C
+           output(r,c,d) = (filter .* ...
+               image(r-rOffset:r+rOffset,c-cOffset:c+cOffset,d)) / fsize;
+       end
+   end
+end

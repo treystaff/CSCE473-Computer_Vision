@@ -58,8 +58,13 @@ for d=1:D
    %Loop through rows and columns
    for r=1:R
        for c=1:C
-           output(r,c,d) = (filter .* ...
-               image(r-rOffset:r+rOffset,c-cOffset:c+cOffset,d)) / fsize;
+           %Multiply the filter by the area in the image the window is over
+           fcalc = filter .* double(image(r:r+fr-1,c:c+fc-1,d));
+           
+           % Obtain the sum of the filter calculation
+           output(r,c,d) = sum(fcalc(:));
        end
    end
+output = cast(output,'like',image);
 end
+

@@ -1,5 +1,6 @@
 function [magnitude, orientation] = my_edge(image, type, threshold)
 % Supported types include sobel, prewitt, Laplacian
+% Laplacian returns NaN for orientation.
 
 %Convert img to doubles
 image = double(image);
@@ -7,7 +8,7 @@ image = double(image);
 % Create the desired filter.  
 filter = fspecial(type);
 if ~strcmpi(type,'laplacian')
-    % Approximate x and y derivatives (gradients)
+    % Approximate x and y gradients
     s1 = imfilter(image,filter,'replicate');
     s2 = imfilter(image,filter','replicate'); %The filter is transposed. 
 
